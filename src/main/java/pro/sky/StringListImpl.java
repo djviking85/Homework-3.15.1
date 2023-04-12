@@ -1,11 +1,24 @@
 package pro.sky;
 
+import pro.sky.exceptions.NullParamExceptions;
+
+import java.util.Arrays;
+
 public class StringListImpl implements StringList {
-    String[] strtingArrayList = new String[];
+    String[] strtingArrayList = new String[0];
 
     @Override
     public String add(String item) {
-        if(item != null)
+        if(item == null)
+            throw new NullParamExceptions("Итем равняется NULL");
+        strtingArrayList = Arrays.copyOf(strtingArrayList, strtingArrayList.length + 1);
+        strtingArrayList[strtingArrayList.length - 1] = item;
+        return item;
+    }
+
+    @Override
+    public String add(int index, String item) {
+        return null;
     }
 
 
