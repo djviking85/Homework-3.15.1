@@ -18,6 +18,9 @@ public class IntegerArrayListImpl implements IntegerList {
         integerArray[integerArray.length - 1] = item;
         return item;
     }
+    private void grow() {
+        integerArray = Arrays.copyOf(integerArray, integerArray.length + (integerArray.length / 2));
+    }
 
     @Override
     public Integer add(int index, Integer item) {
@@ -28,11 +31,12 @@ public class IntegerArrayListImpl implements IntegerList {
         }
         if (index > integerArray.length)
             throw new IndexOutOfBoundsException("Index out of bounds");
-
-        integerArray = Arrays.copyOf(integerArray, integerArray.length + 1);
-        for (int i = integerArray.length - 1; i > index; i--) {
+        if (this.size() == integerArray.length)
+            grow();
+        for (int i = this.size() - 1; i > index; i--) {
             integerArray[i] = integerArray[i - 1];
         }
+
         integerArray[index] = item;
         return item;
     }
